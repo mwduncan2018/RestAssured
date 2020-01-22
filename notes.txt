@@ -1,0 +1,26 @@
+The problem is the order in which Hamcrest and RestAssured and being processed in the Maven POM XML
+OR
+the order for in some Java build settings of Eclipse
+fiture it out later
+
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>4.2.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>xml-path</artifactId>
+			<version>4.2.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>4.2.0</version>
+			<scope>test</scope>
+		</dependency>
