@@ -1,8 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.stream.IntStream;
+
 import org.hamcrest.Matchers;
+import org.json.simple.JSONObject;
 import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.restassured.RestAssured;
@@ -16,9 +20,12 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-
-
 class RestAssuredDemo2 {
+
+	@BeforeEach
+	void beforeEach() {
+		RestAssured.baseURI = "http://localhost:60030/api";
+	}
 
 	@AfterEach
 	void afterEach() {
@@ -26,74 +33,47 @@ class RestAssuredDemo2 {
 	}
 
 	@Test
-	void abc() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RestAssured.get("/watchlist").then().statusCode(200).assertThat().body("", Matchers.comparesEqualTo(35));
-		//then().statusCode(200).assertThat().body("", Matchers.equalTo(35));
-	}
-	
-	@Test
-	void sendRequest() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/watchlist");
-		String responseBody = response.getBody().asString();
-		System.out.println(responseBody);
+	@Ignore
+	void test2() {
+		// RestAssured.given().when().get("/watchlist").then().assertThat().body("",
+		// hasSize(6));
+
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
-	void validateStatus200() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/watchlist");
-		assertEquals(200, response.getStatusCode(), "Correct status code of 200 returned");
-	}
+	void postToServer_wait_DeleteFromServer() {
+		JSONObject requestParameters = new JSONObject();
+		requestParameters.put("FirstName", "Travis");
+		requestParameters.put("LastName", "Duncan");
+		requestParameters.put("Bounty", 2);
 
-	@Test
-	void validateStatus404() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/none");
-		assertEquals(404, response.getStatusCode());
-	}
+		RequestSpecification request;
+		Response response;
 
-	@Test
-	void validateStatusLine() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/watchlist");
-		String statusLine = response.getStatusLine();
-		System.out.println(statusLine);
-	}
+		// Post the Watch List Entry to the Web API
+		request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		request.body(requestParameters.toJSONString());
+		response = request.post("/watchlist/post");
+		System.out.println(response.getStatusCode());
 
-	@Test
-	void validateHeaderInfo() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/watchlist");
+		// Check it manually
+		IntStream.range(0, 3).forEachOrdered(n -> {
+			System.out.println(n);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+		});
 
-		String contentType = response.header("Content-Type");
-		System.out.println("Content-Type..." + contentType);
-
-		String server = response.header("Server");
-		System.out.println("Server..." + server);
-
-		String contentEncoding = response.header("Content-Encoding");
-		System.out.println("Content-Encoding..." + contentEncoding);
-	}
-
-	@Test
-	void validateAllHeaderInfo() {
-		RestAssured.baseURI = "http://localhost:60030/api";
-		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.request(Method.GET, "/watchlist");
-
-		Headers headers = response.headers();
-		System.out.println("=== ALL HEADER INFO ===");
-		for (Header header : headers) {
-			System.out.println(header.getName() + "..." + header.getValue());
-		}
+		// Delete the Watch List Entry from the Web API
+		request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		request.queryParam("firstName", "Travis");
+		request.queryParam("lastName", "Duncan");
+		response = request.delete("/watchlist/delete");
+		System.out.println(response.getStatusCode());
 
 	}
 
