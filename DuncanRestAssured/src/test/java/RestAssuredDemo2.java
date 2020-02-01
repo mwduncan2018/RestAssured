@@ -27,22 +27,8 @@ class RestAssuredDemo2 {
 		RestAssured.baseURI = "http://localhost:60030/api";
 	}
 
-	@AfterEach
-	void afterEach() {
-		System.out.println("");
-	}
-
 	@Test
-	@Ignore
-	void test2() {
-		// RestAssured.given().when().get("/watchlist").then().assertThat().body("",
-		// hasSize(6));
-
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	void postToServer_wait_DeleteFromServer() {
+	void postWatchListEntryToServer_verifyManually_deleteWatchListEntryFromServer() {
 		JSONObject requestParameters = new JSONObject();
 		requestParameters.put("FirstName", "Travis");
 		requestParameters.put("LastName", "Duncan");
@@ -74,7 +60,7 @@ class RestAssuredDemo2 {
 		request.queryParam("lastName", "Duncan");
 		response = request.delete("/watchlist/delete");
 		System.out.println(response.getStatusCode());
-
+		System.out.println(response.getBody().asString() + "\n");
 	}
 
 }
