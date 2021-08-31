@@ -57,10 +57,15 @@ public class RunCucumberTest {
 		// Example: "Content-Type" of "application/json" is for a JSON Body
 		// Example: "Content-Type" of "application/xml" is for an XML Body
 		
+		// What have I accomplished?
+		// Cucumber & RESTAssured together
+		// POST
+		// DELETE with query parameters
+		// GET
+		// analyze JSON with JsonPath
+		// headers
 		
-		
-
-		
+		// https://www.javadoc.io/doc/io.rest-assured/json-path/3.0.0/io/restassured/path/json/JsonPath.html 
 	}
 
 	@AfterClass
