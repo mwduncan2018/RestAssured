@@ -1,3 +1,4 @@
+package restassureddemo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.IntStream;

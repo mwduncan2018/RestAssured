@@ -6,11 +6,29 @@
 	<artifactId>DuncanRestAssured</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<!-- I had to remove JUnit5 from the Java Build Path and include it in the 
-		POM instead -->
-
-	<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>4.5.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>4.5.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Share state (test data) between the step definition of a scenario -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>6.10.3</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
@@ -26,6 +44,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -33,7 +52,8 @@
 			<scope>test</scope>
 		</dependency>
 
-
+		<!-- I had to remove JUnit5 from the Java Build Path and include it in 
+			the POM instead -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
