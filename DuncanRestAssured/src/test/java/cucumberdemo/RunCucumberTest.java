@@ -28,9 +28,39 @@ public class RunCucumberTest {
 		System.out.println("**************************************************************************************");
 		System.out.println("Before Cucumber Test Run");
 		System.out.println("**************************************************************************************");
-		
+
 		TestRunContext.getContextBag().put("numberOfScenarios", 0);
 		RestAssured.baseURI = "http://localhost:60030/api";
+
+		// For REST testing, points of verification include:
+		// - Response Status Code
+		// - Response Header
+		// - Response Body
+		
+		// The Response object provides a way to read Status, Headers, and Body.
+		
+		// W3 Status Code Definitions
+		// https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+		
+		// Status Line
+		// - HTTP protocol version (HTTP/1.1)
+		// - Status Code (200)
+		// - Status Code's string value (OK)
+		// Example: HTTP/1.1 200 OK
+		
+		// Headers
+		// Every response from the server contains zero or more headers.
+		// The server sends extra info in the header.
+		// This extra info is known as META DATA.
+		// Each header entry is a key:value pair.
+		// Example: "Content-Type" tell how to interpret what is in the Body
+		// Example: "Content-Type" of "application/json" is for a JSON Body
+		// Example: "Content-Type" of "application/xml" is for an XML Body
+		
+		
+		
+
+		
 	}
 
 	@AfterClass

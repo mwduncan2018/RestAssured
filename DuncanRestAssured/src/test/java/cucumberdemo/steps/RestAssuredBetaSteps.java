@@ -2,6 +2,9 @@ package cucumberdemo.steps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+import java.util.Map;
+
 import org.json.simple.JSONObject;
 
 import io.cucumber.java.en.Given;
@@ -13,6 +16,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import cucumberdemo.context.ScenarioContext;
@@ -53,8 +57,17 @@ public class RestAssuredBetaSteps {
 		String json = RestAssured.given()
 				.header("Content-Type", "application/json")
 				.get("/watchlist")
-				.getBody().asString();
+				.body().asString();
+		System.out.println("\t.body().asString();");
+		System.out.println(json);
 
+		JsonPath jsonPath = JsonPath.with("{\"Object\": " + json + "}");
+		List<Map> result = jsonPath
+				.param("firstName", "Trav")
+				.param("lastName", "Duncan")
+				.get("Object.findAll { x -> x.FirstName == firstName && x.LastName == lastName }");
+
+		assertEquals(1, result.size());
 	}
 
 	@And("delete the watchlist entry")
