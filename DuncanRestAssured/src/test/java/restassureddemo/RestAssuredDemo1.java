@@ -24,6 +24,7 @@ public class RestAssuredDemo1 {
 		RequestSpecification httpRequest = RestAssured.given();
 		Response response = httpRequest.request(Method.GET, "/watchlist");
 		String responseBody = response.getBody().asString();
+		System.out.println("\tRESPONSE BODY");
 		System.out.println(responseBody);
 	}
 
@@ -49,6 +50,7 @@ public class RestAssuredDemo1 {
 		RequestSpecification httpRequest = RestAssured.given();
 		Response response = httpRequest.request(Method.GET, "/watchlist");
 		String statusLine = response.getStatusLine();
+		System.out.println("\tSTATUS LINE");
 		System.out.println(statusLine);
 	}
 

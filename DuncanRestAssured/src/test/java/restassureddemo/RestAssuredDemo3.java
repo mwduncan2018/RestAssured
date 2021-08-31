@@ -39,12 +39,14 @@ class RestAssuredDemo3 {
 	void afterEach() {
 		// Delete the Watch List Entry for Gail
 		RestAssured.given().header("Content-Type", "application/json")
-				.queryParam("firstName", gailJson.get("FirstName")).queryParam("lastName", gailJson.get("LastName"))
+				.queryParam("firstName", gailJson.get("FirstName"))
+				.queryParam("lastName", gailJson.get("LastName"))
 				.when().delete("/watchlist/delete");
 
 		// Delete the Watch List Entry for Trav
 		RestAssured.given().header("Content-Type", "application/json")
-				.queryParam("firstName", travJson.get("FirstName")).queryParam("lastName", travJson.get("LastName"))
+				.queryParam("firstName", travJson.get("FirstName"))
+				.queryParam("lastName", travJson.get("LastName"))
 				.when().delete("/watchlist/delete");
 	}
 
@@ -55,7 +57,8 @@ class RestAssuredDemo3 {
 				.post("/watchlist/post").then().assertThat().statusCode(201);
 
 		// Verify the Watch List Entry has been added using the Web API
-		String json = RestAssured.given().header("Content-Type", "application/json").when().get("/watchlist").getBody()
+		String json = RestAssured.given().header("Content-Type", "application/json")
+				.when().get("/watchlist").getBody()
 				.asString();
 		Map<String, ?> result = JsonPath.from("{\"Object\": " + json + "}")
 				.get("Object.find { x -> x.FirstName == 'Trav' && x.LastName == 'Duncan' }");
