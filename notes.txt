@@ -1,16 +1,19 @@
+curl --data
+	typically used for POSTs
+	
+How to post form data using Curl
+	-F (--form)
+		sends form data with the multipart/form-data content type
+	-d
+		sends  form data with the application encoded  content type
+		
+
+
+
+
+
+
 [{"WatchListEntryId":1,"Bounty":500000,"FirstName":"Michael","LastName":"Duncan"},{"WatchListEntryId":5,"Bounty":60000,"FirstName":"Daniel","LastName":"Faraday"},{"WatchListEntryId":13,"Bounty":10000,"FirstName":"John","LastName":"Locke"},{"WatchListEntryId":14,"Bounty":90000,"FirstName":"Frederich","LastName":"Nietzsche"},{"WatchListEntryId":15,"Bounty":5000000,"FirstName":"Charlie","LastName":"Sheen"},{"WatchListEntryId":22,"Bounty":250000,"FirstName":"Ed","LastName":"Boone"},{"WatchListEntryId":23,"Bounty":115000,"FirstName":"Erik","LastName":"Angone"},{"WatchListEntryId":305,"Bounty":3,"FirstName":"Gail","LastName":"Duncan"}]
-
-
-
-
-
-
-
-
-
-
-
-
 GPath tutorial
 	https://www.james-willett.com/rest-assured-gpath-json
 	https://wjw465150.github.io/blog/Groovy/my_data/%E5%AE%98%E6%96%B9%E4%BE%8B%E5%AD%90/Groovy%20-%20GPath.htm
