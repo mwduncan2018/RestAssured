@@ -1,10 +1,10 @@
-package cucumberdemo.testdata.model.post;
+package cucumberdemo.restapi.model.watchlistentry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "FirstName", "LastName", "Bounty" })
-public class PostWatchListEntry {
+public class WatchListEntry {
 	@JsonProperty("FirstName")
 	private String firstName;
 	@JsonProperty("LastName")
@@ -12,6 +12,15 @@ public class PostWatchListEntry {
 	@JsonProperty("Bounty")
 	private String bounty;
 
+	public WatchListEntry() {
+	}
+	
+	public WatchListEntry(String firstName, String lastName, String bounty) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setBounty(bounty);
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
