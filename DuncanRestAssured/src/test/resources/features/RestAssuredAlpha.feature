@@ -1,4 +1,5 @@
 @RestAssuredAlpha
+@Regression
 Feature: RESTAssuredAlpha demo with Cucumber
 
   Scenario: Watchlist endpoint returns 200 status

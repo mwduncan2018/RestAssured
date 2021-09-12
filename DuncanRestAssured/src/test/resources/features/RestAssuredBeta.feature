@@ -1,4 +1,5 @@
 @RestAssuredBeta
+@Regression
 Feature: RESTAssuredBeta demo with Cucumber
 
   Scenario: Post watchlist entry
