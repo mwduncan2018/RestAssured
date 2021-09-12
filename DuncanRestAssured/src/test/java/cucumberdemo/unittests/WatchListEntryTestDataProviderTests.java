@@ -3,38 +3,39 @@ package cucumberdemo.unittests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 
-import cucumberdemo.testdata.model.post.PostRoot;
-import cucumberdemo.testdata.model.post.PostWatchListEntry;
-import cucumberdemo.testdata.provider.PostWatchListEntryProvider;
+import cucumberdemo.restapi.model.watchlistentry.WatchListEntry;
+import cucumberdemo.testdata.provider.WatchListEntryTestDataProvider;
 
-class PostWatchListEntryProviderTests {
+class WatchListEntryTestDataProviderTests {
+	public static WatchListEntry x;
+	public static WatchListEntry y;
+	public static WatchListEntry z;
+
+	@BeforeEach
+	public void beforeEachTest() {
+		x = new WatchListEntry("Jennifer", "Jackson", "1000");
+		y = new WatchListEntry("Lisa", "Lucky", "2000");
+		z = new WatchListEntry("Samantha", "Sanders", "3000");
+	}
+	
+	@Test
+	void marshalArray_WatchListEntry() {
+		String arrayResult = WatchListEntryTestDataProvider.marshalJson(new WatchListEntry[] { x, y, z });
+		System.out.println(arrayResult);
+	}
 
 	@Test
-	void serializePostWatchListEntries() {
-		PostWatchListEntry x = new PostWatchListEntry();
-		x.setFirstName("Jennifer");
-		x.setLastName("Jackson");
-		x.setBounty("1000");
-		PostWatchListEntry y = new PostWatchListEntry();
-		y.setFirstName("Lisa");
-		y.setLastName("Lucky");
-		y.setBounty("2000");
-		PostWatchListEntry z = new PostWatchListEntry();
-		z.setFirstName("Samantha");
-		z.setLastName("Sanders");
-		z.setBounty("3000");
-		List<PostWatchListEntry> list = new ArrayList<>();
-		list.add(x);
-		list.add(y);
-		list.add(z);
-		PostRoot root = new PostRoot();
-		root.setPostWatchListEntries(list);
-		String result = PostWatchListEntryProvider.marshalJson(root);
-		System.out.println(result);
+	@Disabled
+	void marshalList_WatchListEntry() {
+		String listResult = WatchListEntryTestDataProvider.marshalJson(new ArrayList<>(Arrays.asList(new WatchListEntry[] { x, y, z})));
+		System.out.println(listResult);
 	}
 
 }
