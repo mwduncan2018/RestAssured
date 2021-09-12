@@ -1,5 +1,4 @@
-{
-  "postWatchListEntries" : [ {
+[ {
     "FirstName" : "Jennifer",
     "LastName" : "Jackson",
     "Bounty" : "1000"
@@ -12,4 +11,3 @@
     "LastName" : "Sanders",
     "Bounty" : "3000"
   } ]
-}
