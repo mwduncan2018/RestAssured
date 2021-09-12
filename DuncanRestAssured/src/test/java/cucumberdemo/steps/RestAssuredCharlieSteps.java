@@ -1,15 +1,12 @@
 package cucumberdemo.steps;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,7 +18,6 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import cucumberdemo.context.ScenarioContext;
 import cucumberdemo.marshalling.WatchListEntryMarshalling;
 import cucumberdemo.restapi.model.watchlistentry.WatchListEntry;
@@ -51,17 +47,19 @@ public class RestAssuredCharlieSteps {
 
 	@Then("verify the watchlist entry for Jennifer was saved")
 	public void verifyTheWatchlistEntryForJenniferWasSaved() throws JsonMappingException, JsonProcessingException {
+		WatchListEntry watchListEntry = (WatchListEntry) scenarioContext.getContextBag().get("watchListEntry");
 		
 		Response response = RestAssured.given()
 			.header("Content-Type", "application/json")
 			.get("/watchlist");
 		
 		String json = response.body().asString();
-		WatchListEntry[] watchListEntryArray = WatchListEntryMarshalling.unmarshalJson(json);
-		
-		for (WatchListEntry entry : watchListEntryArray) {
-			System.out.println(entry.getFirstName() + " -- " + entry.getLastName() + " -- " + entry.getBounty());
-		}
+		List<WatchListEntry> watchListEntries = Arrays.asList(WatchListEntryMarshalling.unmarshalJson(json));
+
+		assertTrue(watchListEntries.stream().anyMatch(x -> 
+				x.getFirstName().equals(watchListEntry.getFirstName()) && 
+				x.getLastName().equals(watchListEntry.getLastName()) && 
+				x.getBounty().equals(watchListEntry.getBounty())));
 	}
 
 	@And("delete the watchlist entry for Jennifer")

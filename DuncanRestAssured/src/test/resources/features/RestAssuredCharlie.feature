@@ -1,6 +1,6 @@
 @RestAssuredCharlie
 @Regression
-Feature: RESTAssuredCharlie JSONPath Demo
+Feature: RESTAssuredCharlie with Jackson
 
   Scenario: Post watchlist entry Alpha
     Given a watchlist entry for Jennifer is posted
