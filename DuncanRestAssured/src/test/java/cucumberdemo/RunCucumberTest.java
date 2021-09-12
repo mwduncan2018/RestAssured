@@ -16,11 +16,10 @@ import cucumberdemo.context.TestRunContext;
 import cucumberdemo.context.ScenarioContext;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = { "pretty", "html:target/Destination", "json:target/cucumber.json" },
+@CucumberOptions(tags = "@RestAssuredCharlie", plugin = { "pretty", "html:target/Destination", "json:target/cucumber.json" },
 		// "html:target/Destination" puts the HTML report in 'target/Destination'
 		// "json:target/cucumber.json" puts the JSON report in 'target/cucumber.json'
 		monochrome = true, snippets = SnippetType.UNDERSCORE, features = "src/test/resources")
-// features = "classpath:features")
 public class RunCucumberTest {
 
 	@BeforeClass
