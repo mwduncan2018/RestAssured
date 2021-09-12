@@ -30,5 +30,4 @@ public class WatchListEntryTestDataProvider {
 		}
 		return null;
 	}
-
 }

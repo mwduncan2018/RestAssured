@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -32,7 +33,11 @@ public class RestAssuredCharlieSteps {
 
 	@Given("a watchlist entry for Jennifer is posted")
 	public void aWatchlistEntryForJenniferIsPosted() {
-		WatchListEntry watchListEntry = WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson");
+		//WatchListEntry watchListEntry = WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson");
+		WatchListEntry watchListEntry = WatchListEntryTestDataProvider.getAll().stream()
+				.filter(x -> x.getFirstName().equals("Jennifer") && x.getLastName().equals("Jackson"))
+				.findAny().get();
+		
 		String jsonPayload = WatchListEntryMarshalling.marshalJson(watchListEntry);
 
 		Response response = RestAssured.given()

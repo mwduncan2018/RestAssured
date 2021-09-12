@@ -1,9 +1,5 @@
 package cucumberdemo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -13,7 +9,6 @@ import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.CucumberOptions.SnippetType;
 import io.restassured.RestAssured;
 import cucumberdemo.context.TestRunContext;
-import cucumberdemo.context.ScenarioContext;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(tags = "@RestAssuredCharlie", plugin = { "pretty", "html:target/Destination", "json:target/cucumber.json" },
