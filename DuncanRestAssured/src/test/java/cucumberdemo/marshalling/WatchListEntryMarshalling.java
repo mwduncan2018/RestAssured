@@ -54,7 +54,7 @@ public class WatchListEntryMarshalling {
 		}
 		return null;
 	}
-	
+
 	// Reads a file and converts the JSON to an array of WatchListEntry
 	public static WatchListEntry[] unmarshalJson(File jsonFile) {
 		try {

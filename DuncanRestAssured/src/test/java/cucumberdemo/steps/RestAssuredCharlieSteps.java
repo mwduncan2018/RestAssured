@@ -36,8 +36,8 @@ public class RestAssuredCharlieSteps {
 
 	@Given("a watchlist entry for Jennifer is posted")
 	public void aWatchlistEntryForJenniferIsPosted() {
-		String jsonPayload = WatchListEntryMarshalling.marshalJson(
-				WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson"));
+		WatchListEntry watchListEntry = WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson");
+		String jsonPayload = WatchListEntryMarshalling.marshalJson(watchListEntry);
 
 		Response response = RestAssured.given()
 			.header("Content-Type", "application/json")
@@ -46,6 +46,7 @@ public class RestAssuredCharlieSteps {
 
 		scenarioContext.getContextBag().put("response", response);
 		scenarioContext.getContextBag().put("jsonPayload", jsonPayload);
+		scenarioContext.getContextBag().put("watchListEntry", watchListEntry);
 	}
 
 	@Then("verify the watchlist entry for Jennifer was saved")
@@ -65,6 +66,12 @@ public class RestAssuredCharlieSteps {
 
 	@And("delete the watchlist entry for Jennifer")
 	public void deleteTheWatchlistEntryForJennifer() {
-
+		WatchListEntry watchListEntry = (WatchListEntry) scenarioContext.getContextBag().get("watchListEntry");
+		
+		RestAssured.given().header("Content-Type", "application/json")
+				.queryParam("firstName", watchListEntry.getFirstName())
+				.queryParam("lastName", watchListEntry.getLastName())
+				.delete("/watchlist/delete")
+				.then().assertThat().statusCode(200);
 	}
 }
