@@ -2,8 +2,14 @@ package cucumberdemo.steps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,11 +20,11 @@ import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import cucumberdemo.context.ScenarioContext;
-import cucumberdemo.testdata.provider.PostWatchListEntryProvider;
+import cucumberdemo.restapi.model.watchlistentry.WatchListEntry;
+import cucumberdemo.testdata.provider.WatchListEntryTestDataProvider;
 
 public class RestAssuredCharlieSteps {
 	private ScenarioContext scenarioContext;
@@ -29,8 +35,8 @@ public class RestAssuredCharlieSteps {
 
 	@Given("a watchlist entry for Jennifer is posted")
 	public void aWatchlistEntryForJenniferIsPosted() {
-		String jsonPayload = PostWatchListEntryProvider.marshalJson(
-				PostWatchListEntryProvider.getByName("Jennifer", "Jackson"));
+		String jsonPayload = WatchListEntryTestDataProvider.marshalJson(
+				WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson"));
 
 		Response response = RestAssured.given()
 			.header("Content-Type", "application/json")
@@ -42,18 +48,18 @@ public class RestAssuredCharlieSteps {
 	}
 
 	@Then("verify the watchlist entry for Jennifer was saved")
-	public void verifyTheWatchlistEntryForJenniferWasSaved() {
+	public void verifyTheWatchlistEntryForJenniferWasSaved() throws JsonMappingException, JsonProcessingException {
 		
 		Response response = RestAssured.given()
 			.header("Content-Type", "application/json")
 			.get("/watchlist");
-
+		
 		String json = response.body().asString();
-
-		System.out.println(".......................................................");
-		System.out.println(json);
-		System.out.println(".......................................................");
-
+		WatchListEntry[] watchListEntryArray = WatchListEntryTestDataProvider.unmarshalJson(json);
+		
+		for (WatchListEntry entry : watchListEntryArray) {
+			System.out.println(entry.getFirstName() + " -- " + entry.getLastName() + " -- " + entry.getBounty());
+		}
 	}
 
 	@And("delete the watchlist entry for Jennifer")
