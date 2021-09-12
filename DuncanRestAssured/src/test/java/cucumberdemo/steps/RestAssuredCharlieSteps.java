@@ -23,6 +23,7 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import cucumberdemo.context.ScenarioContext;
+import cucumberdemo.marshalling.WatchListEntryMarshalling;
 import cucumberdemo.restapi.model.watchlistentry.WatchListEntry;
 import cucumberdemo.testdata.provider.WatchListEntryTestDataProvider;
 
@@ -35,7 +36,7 @@ public class RestAssuredCharlieSteps {
 
 	@Given("a watchlist entry for Jennifer is posted")
 	public void aWatchlistEntryForJenniferIsPosted() {
-		String jsonPayload = WatchListEntryTestDataProvider.marshalJson(
+		String jsonPayload = WatchListEntryMarshalling.marshalJson(
 				WatchListEntryTestDataProvider.getByName("Jennifer", "Jackson"));
 
 		Response response = RestAssured.given()
@@ -55,7 +56,7 @@ public class RestAssuredCharlieSteps {
 			.get("/watchlist");
 		
 		String json = response.body().asString();
-		WatchListEntry[] watchListEntryArray = WatchListEntryTestDataProvider.unmarshalJson(json);
+		WatchListEntry[] watchListEntryArray = WatchListEntryMarshalling.unmarshalJson(json);
 		
 		for (WatchListEntry entry : watchListEntryArray) {
 			System.out.println(entry.getFirstName() + " -- " + entry.getLastName() + " -- " + entry.getBounty());

@@ -10,10 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
+import cucumberdemo.marshalling.WatchListEntryMarshalling;
 import cucumberdemo.restapi.model.watchlistentry.WatchListEntry;
 import cucumberdemo.testdata.provider.WatchListEntryTestDataProvider;
 
-class WatchListEntryTestDataProviderTests {
+class WatchListEntryMarshallingTests {
 	public static WatchListEntry x;
 	public static WatchListEntry y;
 	public static WatchListEntry z;
@@ -27,14 +28,14 @@ class WatchListEntryTestDataProviderTests {
 	
 	@Test
 	void marshalArray_WatchListEntry() {
-		String arrayResult = WatchListEntryTestDataProvider.marshalJson(new WatchListEntry[] { x, y, z });
+		String arrayResult = WatchListEntryMarshalling.marshalJson(new WatchListEntry[] { x, y, z });
 		System.out.println(arrayResult);
 	}
 
 	@Test
 	@Disabled
 	void marshalList_WatchListEntry() {
-		String listResult = WatchListEntryTestDataProvider.marshalJson(new ArrayList<>(Arrays.asList(new WatchListEntry[] { x, y, z})));
+		String listResult = WatchListEntryMarshalling.marshalJson(new ArrayList<>(Arrays.asList(new WatchListEntry[] { x, y, z})));
 		System.out.println(listResult);
 	}
 
