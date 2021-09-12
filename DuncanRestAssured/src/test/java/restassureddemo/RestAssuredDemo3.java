@@ -54,6 +54,7 @@ class RestAssuredDemo3 {
 	@Test
 	void postWatchListEntryTrav_verifyWatchListEntryTrav() {
 		// Post the Watch List Entry to the Web API
+		System.out.println(travJson.toJSONString());
 		RestAssured.given().header("Content-Type", "application/json").body(travJson.toJSONString()).when()
 				.post("/watchlist/post").then().assertThat().statusCode(201);
 
