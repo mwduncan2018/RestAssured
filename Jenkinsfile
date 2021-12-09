@@ -19,7 +19,6 @@ pipeline {
     stage('Build') {
       steps {
         echo "Building version ${VERSION} with suffix: ${VERSION_RC}"
-        sh 'mvn clean'
       }
     }      
     stage('Test') {
