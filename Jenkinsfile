@@ -4,7 +4,7 @@ pipeline {
   environment {
     VERSION='8.7'
     VERSION_RC='rc.2"
-    DEMO='Pluralsight Re-usable Pipelines'
+    DEMO='Pluralsight Reusable Pipelines'
   }
   
   stages {
