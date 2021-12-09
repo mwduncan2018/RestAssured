@@ -31,10 +31,11 @@ pipeline {
     }
   }
   post {
-  success {
-    archiveArtifacts 'test-results.txt'
-  }
-  always {
-    echo 'This always prints!'
+    success {
+      archiveArtifacts 'test-results.txt'
+    }
+    always {
+      echo 'This always prints!'
+    }
   }
 }
