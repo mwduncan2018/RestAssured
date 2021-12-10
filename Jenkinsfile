@@ -33,6 +33,11 @@ pipeline {
         writeFile file: 'test-results.txt', text: 'Testing passes!'
       }
     }
+    stage('Publish') {
+      when {
+        expression { return params.RC }
+      }
+    }
   }
   post {
     success {
