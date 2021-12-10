@@ -1,6 +1,9 @@
 pipeline {
   agent any
-
+  parameters {
+    booleanParam(name: 'RC', defaultValue: false, description: "Is this a Release Candidate?')
+  }
+  
   environment {
     VERSION='8.7'
     VERSION_RC='rc.2'
@@ -17,6 +20,9 @@ pipeline {
       }
     }
     stage('Build') {
+      environment {
+        VERSION_SUFFIX = "${sh(script:'if [ "${RC}" == "false" ] ; then echo -n "${VERSION_RC}+ci.${BUILD_NUMBER}"; else echo -n "${VERSION_RC}"; fi', returnStdout: true)}"
+      }
       steps {
         echo "Building version ${VERSION} with suffix: ${VERSION_RC}"
       }
