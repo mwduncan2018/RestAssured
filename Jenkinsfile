@@ -37,6 +37,9 @@ pipeline {
       when {
         expression { return params.RC }
       }
+      steps {
+        echo 'Inside Publish stage'
+      }
     }
   }
   post {
