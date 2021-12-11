@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Audit tools') {
       steps {
-        auditTools2 message: 'Why I have believed as many as 7 things before breakfast!'
+        auditTools()
       }
     }
     stage('Build') {
