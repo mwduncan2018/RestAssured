@@ -20,7 +20,7 @@ pipeline {
     }
     stage('Build') {
       environment {
-        VERSION_SUFFIX = getVersionSuffix()
+        VERSION_SUFFIX = getVersionSuffix() rcNumber: ${VERSION_RC}, isReleaseCandidate: ${RC}
       }
       steps {
         echo "Building version ${VERSION} with suffix: ${VERSION_RC}"
