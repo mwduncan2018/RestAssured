@@ -15,12 +15,12 @@ pipeline {
   stages {
     stage('Audit tools') {
       steps {
-        auditTools()
+        auditTools2 message: 'Why I have believed as many as 7 things before breakfast!'
       }
     }
     stage('Build') {
       environment {
-        VERSION_SUFFIX = getVersionSuffix() rcNumber: ${VERSION_RC}, isReleaseCandidate: ${RC}
+        VERSION_SUFFIX = getVersionSuffix rcNumber: ${VERSION_RC}, isReleaseCandidate: ${RC}
       }
       steps {
         echo "Building version ${VERSION} with suffix: ${VERSION_RC}"
